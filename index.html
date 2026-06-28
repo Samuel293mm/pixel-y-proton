@@ -1,0 +1,1759 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pixel & Protón | Academia de Robótica</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ============================================================
+       TOKENS & RESET
+    ============================================================ */
+    :root {
+      --black:       #05050f;
+      --void:        #0a0a1a;
+      --midnight:    #0d0d2b;
+      --deep-blue:   #0f0f3d;
+      --indigo:      #1a1a6e;
+      --electric:    #3d2bff;
+      --violet:      #7c3aed;
+      --purple:      #a855f7;
+      --magenta:     #c026d3;
+      --cyan:        #00f5ff;
+      --cyan-dim:    #00c4cc;
+      --orange:      #ff6b00;
+      --orange-glow: #ff8c00;
+      --white:       #f0f4ff;
+      --gray:        #8892b0;
+      --gray-dim:    #4a5568;
+
+      --font-display: 'Orbitron', sans-serif;
+      --font-body:    'Inter', sans-serif;
+
+      --radius-sm:  6px;
+      --radius-md:  12px;
+      --radius-lg:  24px;
+
+      --glow-cyan:   0 0 20px rgba(0,245,255,.45), 0 0 60px rgba(0,245,255,.15);
+      --glow-orange: 0 0 20px rgba(255,107,0,.55), 0 0 60px rgba(255,107,0,.2);
+      --glow-violet: 0 0 30px rgba(124,58,237,.4), 0 0 80px rgba(124,58,237,.1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--black);
+      color: var(--white);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    img { max-width: 100%; display: block; }
+    a   { text-decoration: none; color: inherit; }
+    ul  { list-style: none; }
+
+    /* ============================================================
+       GRID NOISE BACKGROUND
+    ============================================================ */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(61,43,255,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(61,43,255,.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ============================================================
+       UTILITIES
+    ============================================================ */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-tag {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-size: .65rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      background: rgba(0,245,255,.08);
+      border: 1px solid rgba(0,245,255,.25);
+      padding: 5px 14px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+    }
+
+    .section-heading {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 4vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--white);
+    }
+
+    .accent-cyan   { color: var(--cyan); }
+    .accent-orange { color: var(--orange); }
+    .accent-purple { color: var(--purple); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-display);
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 14px 32px;
+      border-radius: var(--radius-sm);
+      border: none;
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s, filter .2s;
+    }
+
+    .btn:hover { transform: translateY(-3px); filter: brightness(1.15); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--orange), var(--orange-glow));
+      color: var(--black);
+      box-shadow: var(--glow-orange);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--cyan);
+      border: 2px solid var(--cyan);
+      box-shadow: var(--glow-cyan);
+    }
+    .btn-secondary:hover { background: rgba(0,245,255,.08); }
+
+    /* ============================================================
+       HEADER / NAV
+    ============================================================ */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 900;
+      background: rgba(5,5,15,.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(124,58,237,.2);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+      gap: 24px;
+    }
+
+    .nav-logo img {
+      height: 44px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+    }
+
+    .nav-links a {
+      font-family: var(--font-display);
+      font-size: .7rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--gray);
+      transition: color .2s;
+    }
+
+    .nav-links a:hover { color: var(--cyan); }
+
+    .nav-cta {
+      font-size: .72rem;
+      padding: 10px 22px;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 26px;
+      height: 2px;
+      background: var(--cyan);
+      border-radius: 2px;
+      transition: transform .3s, opacity .3s;
+    }
+
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      gap: 0;
+      background: rgba(5,5,15,.97);
+      border-top: 1px solid rgba(124,58,237,.2);
+      padding: 16px 24px 24px;
+    }
+
+    .mobile-menu.open { display: flex; }
+
+    .mobile-menu a {
+      font-family: var(--font-display);
+      font-size: .75rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--gray);
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,.05);
+      transition: color .2s;
+    }
+
+    .mobile-menu a:hover { color: var(--cyan); }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    #inicio {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 120px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ambient orbs */
+    #inicio::after {
+      content: '';
+      position: absolute;
+      width: 700px; height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(61,43,255,.18) 0%, transparent 70%);
+      top: -200px; right: -200px;
+      pointer-events: none;
+    }
+
+    .hero-orb-2 {
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(124,58,237,.14) 0%, transparent 70%);
+      bottom: -100px; left: -100px;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .hero-left { z-index: 2; }
+
+    .hero-banner-img {
+      width: 100%;
+      max-width: 540px;
+      margin-bottom: 32px;
+      filter: drop-shadow(0 0 40px rgba(61,43,255,.5));
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--gray);
+      max-width: 460px;
+      margin-bottom: 36px;
+      line-height: 1.7;
+    }
+
+    .hero-sub strong { color: var(--white); }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+
+    .badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 100px;
+      padding: 7px 16px;
+      font-size: .8rem;
+      color: var(--gray);
+    }
+
+    .badge svg { flex-shrink: 0; }
+
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    /* Robot side */
+    .hero-right {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .robot-wrap {
+      position: relative;
+      z-index: 2;
+    }
+
+    .robot-wrap img {
+      width: 100%;
+      max-width: 420px;
+      animation: float 4s ease-in-out infinite;
+      filter: drop-shadow(0 0 50px rgba(0,245,255,.3));
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-22px); }
+    }
+
+    .robot-ring {
+      position: absolute;
+      inset: -24px;
+      border-radius: 50%;
+      border: 1px solid rgba(0,245,255,.12);
+      animation: spin 18s linear infinite;
+      pointer-events: none;
+    }
+
+    .robot-ring::before {
+      content: '';
+      position: absolute;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: var(--glow-cyan);
+      top: 0; left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Stats strip */
+    .hero-stats {
+      margin-top: 80px;
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      border: 1px solid rgba(124,58,237,.2);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: rgba(255,255,255,.02);
+    }
+
+    .stat-item {
+      flex: 1;
+      text-align: center;
+      padding: 28px 20px;
+      border-right: 1px solid rgba(124,58,237,.2);
+    }
+
+    .stat-item:last-child { border-right: none; }
+
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      font-size: .78rem;
+      color: var(--gray);
+      line-height: 1.3;
+    }
+
+    /* ============================================================
+       COURSES SECTION
+    ============================================================ */
+    #cursos {
+      padding: 100px 0;
+      position: relative;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-header p {
+      color: var(--gray);
+      max-width: 560px;
+      margin: 16px auto 0;
+      font-size: .95rem;
+    }
+
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .course-card {
+      background: rgba(255,255,255,.025);
+      border: 1px solid rgba(124,58,237,.18);
+      border-radius: var(--radius-md);
+      padding: 32px 28px;
+      cursor: pointer;
+      transition: transform .25s, border-color .25s, box-shadow .25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .course-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(124,58,237,.06), transparent);
+      opacity: 0;
+      transition: opacity .3s;
+    }
+
+    .course-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--violet);
+      box-shadow: var(--glow-violet);
+    }
+
+    .course-card:hover::before { opacity: 1; }
+
+    .course-icon {
+      width: 52px; height: 52px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      margin-bottom: 20px;
+    }
+
+    .course-card h3 {
+      font-family: var(--font-display);
+      font-size: .9rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+
+    .course-card p {
+      font-size: .85rem;
+      color: var(--gray);
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .course-link {
+      font-family: var(--font-display);
+      font-size: .7rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: gap .2s;
+    }
+
+    .course-card:hover .course-link { gap: 10px; }
+
+    /* ============================================================
+       MODAL
+    ============================================================ */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(5,5,15,.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal {
+      background: var(--midnight);
+      border: 1px solid rgba(124,58,237,.35);
+      border-radius: var(--radius-lg);
+      max-width: 600px;
+      width: 100%;
+      padding: 40px;
+      position: relative;
+      transform: translateY(30px) scale(.97);
+      transition: transform .35s cubic-bezier(.34,1.56,.64,1);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-overlay.active .modal {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 20px; right: 20px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 50%;
+      width: 36px; height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--gray);
+      font-size: 1.1rem;
+      transition: background .2s, color .2s;
+    }
+
+    .modal-close:hover { background: rgba(255,255,255,.1); color: var(--white); }
+
+    .modal-icon {
+      width: 64px; height: 64px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin-bottom: 24px;
+    }
+
+    .modal h2 {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+    }
+
+    .modal-desc {
+      color: var(--gray);
+      font-size: .9rem;
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+
+    .modal-topics {
+      margin-bottom: 28px;
+    }
+
+    .modal-topics h4 {
+      font-family: var(--font-display);
+      font-size: .75rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--purple);
+      margin-bottom: 14px;
+    }
+
+    .modal-topics li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: .88rem;
+      color: var(--gray);
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,.05);
+    }
+
+    .modal-topics li::before {
+      content: '▸';
+      color: var(--cyan);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .modal-meta {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    .meta-pill {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 100px;
+      padding: 6px 14px;
+      font-size: .8rem;
+      color: var(--gray);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ============================================================
+       ABOUT SECTION
+    ============================================================ */
+    #quienes-somos {
+      padding: 100px 0;
+      background: linear-gradient(180deg, transparent, rgba(61,43,255,.04), transparent);
+      position: relative;
+    }
+
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 70px;
+      align-items: center;
+    }
+
+    .about-left {}
+
+    .about-left .section-tag { margin-bottom: 20px; }
+
+    .about-left .section-heading { margin-bottom: 24px; }
+
+    .about-desc {
+      color: var(--gray);
+      font-size: .95rem;
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+
+    .about-pillars {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .pillar {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .pillar-icon {
+      width: 44px; height: 44px;
+      flex-shrink: 0;
+      border-radius: var(--radius-sm);
+      background: rgba(0,245,255,.08);
+      border: 1px solid rgba(0,245,255,.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    .pillar-body h4 {
+      font-family: var(--font-display);
+      font-size: .82rem;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .pillar-body p {
+      font-size: .82rem;
+      color: var(--gray);
+      line-height: 1.5;
+    }
+
+    .about-right {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .leader-card {
+      background: rgba(255,255,255,.025);
+      border: 1px solid rgba(124,58,237,.2);
+      border-radius: var(--radius-md);
+      padding: 28px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      transition: border-color .25s;
+    }
+
+    .leader-card:hover { border-color: var(--violet); }
+
+    .leader-avatar {
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, var(--electric), var(--violet));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: var(--white);
+    }
+
+    .leader-info h4 {
+      font-family: var(--font-display);
+      font-size: .88rem;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .leader-info .role {
+      font-size: .78rem;
+      color: var(--cyan);
+      margin-bottom: 10px;
+    }
+
+    .leader-info p {
+      font-size: .82rem;
+      color: var(--gray);
+      line-height: 1.55;
+    }
+
+    /* Timeline / achievements */
+    .achievements-strip {
+      margin-top: 60px;
+      display: flex;
+      gap: 0;
+      border: 1px solid rgba(61,43,255,.2);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .achieve-item {
+      flex: 1;
+      padding: 24px 20px;
+      text-align: center;
+      background: rgba(255,255,255,.02);
+      border-right: 1px solid rgba(61,43,255,.2);
+      position: relative;
+    }
+
+    .achieve-item:last-child { border-right: none; }
+
+    .achieve-item::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--electric), var(--purple));
+      opacity: 0;
+      transition: opacity .3s;
+    }
+
+    .achieve-item:hover::before { opacity: 1; }
+
+    .achieve-emoji { font-size: 1.8rem; margin-bottom: 8px; }
+
+    .achieve-text {
+      font-size: .78rem;
+      color: var(--gray);
+      line-height: 1.4;
+    }
+
+    /* ============================================================
+       EVENTS SECTION
+    ============================================================ */
+    #eventos {
+      padding: 100px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .events-bg-orb {
+      position: absolute;
+      width: 800px; height: 800px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(124,58,237,.07) 0%, transparent 65%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .event-main {
+      background: linear-gradient(135deg, rgba(61,43,255,.08), rgba(124,58,237,.04));
+      border: 1px solid rgba(124,58,237,.3);
+      border-radius: var(--radius-lg);
+      padding: 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .event-main::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(61,43,255,.04), transparent);
+    }
+
+    .event-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--orange);
+      color: var(--black);
+      font-family: var(--font-display);
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+    }
+
+    .event-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 5vw, 3rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #fff, rgba(255,107,0,.8));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .event-location {
+      font-size: .95rem;
+      color: var(--orange);
+      margin-bottom: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .event-cats {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+    }
+
+    .event-cat {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,107,0,.25);
+      border-radius: var(--radius-md);
+      padding: 24px 32px;
+      text-align: center;
+      min-width: 180px;
+    }
+
+    .event-cat .cat-icon { font-size: 2rem; margin-bottom: 10px; }
+
+    .event-cat h4 {
+      font-family: var(--font-display);
+      font-size: .85rem;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .event-cat p {
+      font-size: .8rem;
+      color: var(--gray);
+    }
+
+    .event-dates {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 44px;
+      flex-wrap: wrap;
+    }
+
+    .date-item { text-align: center; }
+
+    .date-label {
+      font-family: var(--font-display);
+      font-size: .62rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 6px;
+    }
+
+    .date-value {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      color: var(--cyan);
+    }
+
+    /* Countdown */
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 44px;
+      flex-wrap: wrap;
+    }
+
+    .countdown-unit {
+      background: rgba(0,245,255,.04);
+      border: 1px solid rgba(0,245,255,.25);
+      border-radius: var(--radius-sm);
+      padding: 16px 20px;
+      text-align: center;
+      min-width: 80px;
+      box-shadow: 0 0 18px rgba(0,245,255,.08);
+    }
+
+    .countdown-num {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--cyan);
+      line-height: 1;
+      margin-bottom: 4px;
+      text-shadow: 0 0 14px rgba(0,245,255,.6);
+    }
+
+    .countdown-label {
+      font-size: .68rem;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+    }
+
+    /* ============================================================
+       FLOATING BUTTONS
+    ============================================================ */
+    .float-btns {
+      position: fixed;
+      bottom: 32px;
+      right: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      z-index: 800;
+    }
+
+    .float-btn {
+      width: 54px; height: 54px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      transition: transform .25s, box-shadow .25s;
+      box-shadow: 0 4px 20px rgba(0,0,0,.5);
+    }
+
+    .float-btn:hover { transform: scale(1.12); }
+
+    .float-tiktok {
+      background: linear-gradient(135deg, #010101, #1a1a2e);
+      border: 1px solid rgba(255,255,255,.15);
+    }
+
+    .float-wa {
+      background: #25d366;
+      box-shadow: 0 4px 20px rgba(37,211,102,.4);
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    footer {
+      background: var(--void);
+      border-top: 1px solid rgba(124,58,237,.15);
+      padding: 60px 0 30px;
+    }
+
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+
+    .footer-brand img {
+      height: 48px;
+      width: auto;
+      object-fit: contain;
+      margin-bottom: 16px;
+    }
+
+    .footer-brand p {
+      font-size: .85rem;
+      color: var(--gray);
+      line-height: 1.7;
+      max-width: 320px;
+    }
+
+    .footer-col h5 {
+      font-family: var(--font-display);
+      font-size: .72rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 18px;
+    }
+
+    .footer-col ul {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-col ul li a {
+      font-size: .85rem;
+      color: var(--gray);
+      transition: color .2s;
+    }
+
+    .footer-col ul li a:hover { color: var(--cyan); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.05);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: .78rem;
+      color: var(--gray-dim);
+    }
+
+    /* ============================================================
+       SCROLLBAR
+    ============================================================ */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--violet); border-radius: 3px; }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 1024px) {
+      .courses-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero-inner { gap: 40px; }
+    }
+
+    @media (max-width: 860px) {
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+
+      .hero-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .hero-right { order: -1; }
+
+      .robot-wrap img { max-width: 260px; }
+
+      .hero-sub, .hero-badges, .hero-ctas { margin-left: auto; margin-right: auto; }
+
+      .hero-ctas { justify-content: center; }
+
+      .hero-badges { justify-content: center; }
+
+      .hero-stats { overflow-x: auto; }
+
+      .about-inner { grid-template-columns: 1fr; gap: 48px; }
+
+      .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+
+      .event-main { padding: 36px 24px; }
+
+      .achievements-strip { flex-direction: column; }
+      .achieve-item { border-right: none; border-bottom: 1px solid rgba(61,43,255,.2); }
+      .achieve-item:last-child { border-bottom: none; }
+    }
+
+    @media (max-width: 640px) {
+      .courses-grid { grid-template-columns: 1fr; }
+
+      .hero-stats {
+        flex-direction: column;
+      }
+
+      .stat-item { border-right: none; border-bottom: 1px solid rgba(124,58,237,.2); }
+      .stat-item:last-child { border-bottom: none; }
+
+      .event-cats { flex-direction: column; align-items: center; }
+
+      .event-cat { width: 100%; max-width: 280px; }
+
+      .modal { padding: 28px 20px; }
+
+      .footer-bottom { justify-content: center; text-align: center; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .robot-wrap img, .robot-ring { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     HEADER
+============================================================ -->
+<header>
+  <nav class="container">
+    <a href="#inicio" class="nav-logo">
+      <img src="images/logo.png" alt="Pixel & Protón" onerror="this.style.display='none';this.nextElementSibling.style.display='block';" />
+      <span style="display:none;font-family:'Orbitron',sans-serif;font-size:.9rem;font-weight:700;color:#00f5ff;">PIXEL &amp; PROTÓN</span>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#cursos">Cursos</a></li>
+      <li><a href="#quienes-somos">Nosotros</a></li>
+      <li><a href="#eventos">Eventos</a></li>
+    </ul>
+
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLScVIT6MAkHo0s6z-0B6X8tzrlmx1329d82YK7STiyDDcfs1SA/viewform?usp=publish-editor"
+       target="_blank" class="btn btn-primary nav-cta">
+      Inscribirse
+    </a>
+
+    <button class="hamburger" id="menuToggle" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <nav class="mobile-menu" id="mobileMenu">
+    <a href="#inicio"        onclick="closeMobile()">Inicio</a>
+    <a href="#cursos"        onclick="closeMobile()">Cursos</a>
+    <a href="#quienes-somos" onclick="closeMobile()">Nosotros</a>
+    <a href="#eventos"       onclick="closeMobile()">Eventos</a>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLScVIT6MAkHo0s6z-0B6X8tzrlmx1329d82YK7STiyDDcfs1SA/viewform?usp=publish-editor"
+       target="_blank" style="color:#ff6b00;margin-top:8px;" onclick="closeMobile()">→ Inscribirse ahora</a>
+  </nav>
+</header>
+
+
+<!-- ============================================================
+     HERO
+============================================================ -->
+<section id="inicio">
+  <div class="hero-orb-2"></div>
+  <div class="container">
+    <div class="hero-inner">
+
+      <!-- Left -->
+      <div class="hero-left">
+        <div style="margin-bottom:32px;">
+          <div style="font-family:'Orbitron',sans-serif;font-size:clamp(.6rem,1.5vw,.78rem);letter-spacing:.3em;text-transform:uppercase;color:var(--cyan);margin-bottom:14px;">Academia de Robótica</div>
+          <h1 style="font-family:'Orbitron',sans-serif;font-size:clamp(2.6rem,7vw,5rem);font-weight:900;line-height:1.0;background:linear-gradient(135deg,#ffffff 20%,#a78bfa 55%,#7c3aed 80%,#00f5ff 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0;">PIXEL<br/>&amp; PROTÓN</h1>
+        </div>
+
+        <p class="hero-sub">
+          Formamos a los <strong>ingenieros, programadores y creadores del futuro</strong>.
+          Más de 3 años convirtiendo la pasión por la tecnología en habilidades reales y reconocidas.
+        </p>
+
+        <div class="hero-badges">
+          <span class="badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            3 años de trayectoria
+          </span>
+          <span class="badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00f5ff" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            Olimpiadas Nacionales
+          </span>
+          <span class="badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ff6b00" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            Astronomía & Nanotecnología
+          </span>
+        </div>
+
+        <div class="hero-ctas">
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLScVIT6MAkHo0s6z-0B6X8tzrlmx1329d82YK7STiyDDcfs1SA/viewform?usp=publish-editor"
+             target="_blank" class="btn btn-primary">
+            ⚡ Inscribirme Ahora
+          </a>
+          <a href="#cursos" class="btn btn-secondary">
+            Ver Cursos →
+          </a>
+        </div>
+      </div>
+
+      <!-- Right — Banner visual -->
+      <div class="hero-right">
+        <div style="position:relative;z-index:2;width:100%;display:flex;align-items:center;justify-content:center;">
+          <img
+            src="images/banner-text.png"
+            alt="Pixel &amp; Protón — Academia de Robótica"
+            style="width:100%;max-width:460px;animation:float 5s ease-in-out infinite;filter:drop-shadow(0 0 50px rgba(61,43,255,.6)) drop-shadow(0 0 25px rgba(0,245,255,.3));"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">3+</div>
+        <div class="stat-label">Años formando<br/>innovadores</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">6</div>
+        <div class="stat-label">Tracks de<br/>especialización</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">2x</div>
+        <div class="stat-label">Fase Nacional<br/>Robótica Creativa</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Orientado al<br/>futuro digital</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     COURSES
+============================================================ -->
+<section id="cursos">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Formación Especializada</span>
+      <h2 class="section-heading">Nuestros <span class="accent-purple">Tracks</span> de Curso</h2>
+      <p>Elige tu camino tecnológico. Cada track está diseñado para llevarte de cero al dominio real en áreas de alta demanda global.</p>
+    </div>
+
+    <div class="courses-grid">
+
+      <!-- Card 1 -->
+      <div class="course-card" onclick="openModal('robotica')">
+        <div class="course-icon" style="background:rgba(0,245,255,.08);border:1px solid rgba(0,245,255,.2);">🤖</div>
+        <h3>Robótica <span class="accent-cyan">Avanzada</span></h3>
+        <p>Diseña, programa y compite con robots reales. Desde mecánica hasta algoritmos de control autónomo.</p>
+        <span class="course-link">Ver detalle →</span>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="course-card" onclick="openModal('poo')">
+        <div class="course-icon" style="background:rgba(124,58,237,.08);border:1px solid rgba(124,58,237,.2);">💻</div>
+        <h3>Programación <span class="accent-purple">Orientada a Objetos</span></h3>
+        <p>Domina el paradigma que sustenta el 90% del software empresarial. Python, Java y patrones de diseño.</p>
+        <span class="course-link">Ver detalle →</span>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="course-card" onclick="openModal('electronica')">
+        <div class="course-icon" style="background:rgba(255,107,0,.08);border:1px solid rgba(255,107,0,.2);">⚡</div>
+        <h3>Electrónica y <span class="accent-orange">Electricidad</span></h3>
+        <p>Comprende y construye circuitos desde los fundamentos hasta sistemas embebidos con microcontroladores.</p>
+        <span class="course-link">Ver detalle →</span>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="course-card" onclick="openModal('ia')">
+        <div class="course-icon" style="background:rgba(168,85,247,.08);border:1px solid rgba(168,85,247,.2);">🧠</div>
+        <h3>Manejo y Uso de <span class="accent-purple">IA</span></h3>
+        <p>Integra herramientas de inteligencia artificial en proyectos reales. Automatización, prompting y APIs.</p>
+        <span class="course-link">Ver detalle →</span>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="course-card" onclick="openModal('ingles')">
+        <div class="course-icon" style="background:rgba(0,245,255,.06);border:1px solid rgba(0,245,255,.15);">🌐</div>
+        <h3>Inglés <span class="accent-cyan">Técnico</span></h3>
+        <p>Lee documentación, colabora en proyectos internacionales y certifícate en el idioma universal de la tecnología.</p>
+        <span class="course-link">Ver detalle →</span>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="course-card" onclick="openModal('mecatronico')">
+        <div class="course-icon" style="background:rgba(255,107,0,.06);border:1px solid rgba(255,107,0,.15);">⚙️</div>
+        <h3>Diseño <span class="accent-orange">Mecatrónico</span></h3>
+        <p>Fusiona mecánica, electrónica y software para crear sistemas autónomos de ingeniería avanzada.</p>
+        <span class="course-link">Ver detalle →</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     ABOUT
+============================================================ -->
+<section id="quienes-somos">
+  <div class="container">
+    <div class="about-inner">
+
+      <div class="about-left">
+        <span class="section-tag">Nuestra Identidad</span>
+        <h2 class="section-heading">La academia que está<br/><span class="accent-cyan">redefiniendo</span> la educación tecnológica</h2>
+        <p class="about-desc">
+          Pixel &amp; Protón nació con una misión clara: masificar el acceso a la robótica, programación y ciencias aplicadas para la nueva generación de líderes venezolanos y latinoamericanos. Combinamos rigor académico con metodología práctica, competencia real y mentoría personalizada.
+        </p>
+
+        <div class="about-pillars">
+          <div class="pillar">
+            <div class="pillar-icon">🏆</div>
+            <div class="pillar-body">
+              <h4>Clasificación Nacional Consecutiva</h4>
+              <p>Representación en las Olimpiadas de Robótica Creativa a nivel de Fase Nacional en múltiples ediciones.</p>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon">🔭</div>
+            <div class="pillar-body">
+              <h4>Astronomía y Nanotecnología</h4>
+              <p>Programas únicos que expanden la visión científica más allá del aula, conectando con las fronteras del conocimiento.</p>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon">🚀</div>
+            <div class="pillar-body">
+              <h4>Enfoque en Resultados Reales</h4>
+              <p>Cada estudiante egresa con proyectos tangibles, portafolio digital y habilidades certificables.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-right">
+
+        <div class="leader-card">
+          <div class="leader-avatar">FO</div>
+          <div class="leader-info">
+            <h4>Fabrizzio de Oliveira</h4>
+            <div class="role">🎯 Director General</div>
+            <p>Visionario detrás de la academia, con profunda expertise en robótica aplicada y desarrollo de programas STEM para jóvenes en Venezuela y la región.</p>
+          </div>
+        </div>
+
+        <div class="leader-card">
+          <div class="leader-avatar" style="background:linear-gradient(135deg,#00c4cc,#00f5ff);color:#050518;">SC</div>
+          <div class="leader-info">
+            <h4>Samuel Colmenarez</h4>
+            <div class="role">⚙️ Coordinador Académico</div>
+            <p>Responsable de la excelencia curricular y de guiar a los equipos competitivos hacia clasificaciones nacionales sostenidas y repetidas.</p>
+          </div>
+        </div>
+
+        <div style="background:rgba(0,245,255,.04);border:1px solid rgba(0,245,255,.15);border-radius:12px;padding:24px;">
+          <div style="font-family:'Orbitron',sans-serif;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#00f5ff;margin-bottom:14px;">Disciplinas que enseñamos</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            <span style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:100px;padding:5px 12px;font-size:.78rem;color:#8892b0;">Robótica</span>
+            <span style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:100px;padding:5px 12px;font-size:.78rem;color:#8892b0;">Electrónica</span>
+            <span style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:100px;padding:5px 12px;font-size:.78rem;color:#8892b0;">Programación</span>
+            <span style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:100px;padding:5px 12px;font-size:.78rem;color:#8892b0;">Inteligencia Artificial</span>
+            <span style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:100px;padding:5px 12px;font-size:.78rem;color:#8892b0;">Astronomía</span>
+            <span style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:100px;padding:5px 12px;font-size:.78rem;color:#8892b0;">Nanotecnología</span>
+            <span style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:100px;padding:5px 12px;font-size:.78rem;color:#8892b0;">Inglés Técnico</span>
+            <span style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:100px;padding:5px 12px;font-size:.78rem;color:#8892b0;">Mecatrónica</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="achievements-strip">
+      <div class="achieve-item">
+        <div class="achieve-emoji">🥇</div>
+        <div class="achieve-text">Clasificación Fase Nacional<br/>Olimpiadas de Robótica</div>
+      </div>
+      <div class="achieve-item">
+        <div class="achieve-emoji">📡</div>
+        <div class="achieve-text">Formación en<br/>Astronomía aplicada</div>
+      </div>
+      <div class="achieve-item">
+        <div class="achieve-emoji">🔬</div>
+        <div class="achieve-text">Programas de<br/>Nanotecnología</div>
+      </div>
+      <div class="achieve-item">
+        <div class="achieve-emoji">🌎</div>
+        <div class="achieve-text">3 años masificando<br/>la robótica regional</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     EVENTS
+============================================================ -->
+<section id="eventos">
+  <div class="events-bg-orb"></div>
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag" style="color:var(--orange);background:rgba(255,107,0,.08);border-color:rgba(255,107,0,.3);">Próximo Evento</span>
+      <h2 class="section-heading">No te pierdas la<br/><span class="accent-orange">competencia del año</span></h2>
+    </div>
+
+    <div class="event-main">
+      <div class="event-badge">🏆 Evento Oficial</div>
+      <img
+        src="images/banner-text.png"
+        alt="1ra Competencia de Sumo Robótico"
+        style="max-width:700px;width:100%;margin:0 auto 28px;display:block;filter:drop-shadow(0 0 40px rgba(124,58,237,.55)) drop-shadow(0 0 20px rgba(0,245,255,.2));"
+      />
+      <p class="event-location">
+        📍 Plaza Juventud · Evento presencial
+      </p>
+
+      <div class="event-cats">
+        <div class="event-cat">
+          <div class="cat-icon">👦</div>
+          <h4>Categoría Juvenil</h4>
+          <p>9 a 15 años</p>
+        </div>
+        <div class="event-cat">
+          <div class="cat-icon">🧑</div>
+          <h4>Categoría Senior</h4>
+          <p>16 a 19 años</p>
+        </div>
+      </div>
+
+      <div class="event-dates">
+        <div class="date-item">
+          <div class="date-label">Apertura de Inscripciones</div>
+          <div class="date-value">20 de Junio</div>
+        </div>
+        <div class="date-item" style="align-self:center;color:var(--gray-dim);font-size:1.4rem;">→</div>
+        <div class="date-item">
+          <div class="date-label">Cierre de Inscripciones</div>
+          <div class="date-value">3 de Julio</div>
+        </div>
+      </div>
+
+      <!-- Countdown -->
+      <div class="countdown" id="countdown">
+        <div class="countdown-unit"><div class="countdown-num" id="cd-d">--</div><div class="countdown-label">Días</div></div>
+        <div class="countdown-unit"><div class="countdown-num" id="cd-h">--</div><div class="countdown-label">Horas</div></div>
+        <div class="countdown-unit"><div class="countdown-num" id="cd-m">--</div><div class="countdown-label">Min</div></div>
+        <div class="countdown-unit"><div class="countdown-num" id="cd-s">--</div><div class="countdown-label">Seg</div></div>
+      </div>
+
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLScVIT6MAkHo0s6z-0B6X8tzrlmx1329d82YK7STiyDDcfs1SA/viewform?usp=publish-editor"
+         target="_blank" class="btn btn-primary" style="font-size:.85rem;padding:16px 40px;">
+        ⚡ Inscribirme en el Evento
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     FLOATING BUTTONS
+============================================================ -->
+<div class="float-btns">
+  <a href="https://www.tiktok.com/@pixelproton?is_from_webapp=1&sender_device=pc"
+     target="_blank" class="float-btn float-tiktok" title="Síguenos en TikTok">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
+      <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.85a8.18 8.18 0 004.78 1.52V6.9a4.85 4.85 0 01-1.01-.21z"/>
+    </svg>
+  </a>
+  <a href="https://wa.me/584242325923?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20Pixel%20%26%20Prot%C3%B3n%20y%20quiero%20m%C3%A1s%20informaci%C3%B3n%20sobre%20los%20cursos%2Feventos"
+     target="_blank" class="float-btn float-wa" title="WhatsApp">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+      <path d="M12 0C5.373 0 0 5.373 0 12c0 2.11.548 4.094 1.508 5.822L.057 23.999l6.304-1.654A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm.029 21.818c-1.79 0-3.463-.478-4.916-1.316l-.353-.21-3.658.96.976-3.567-.23-.367A9.79 9.79 0 012.18 12.03C2.18 6.699 6.698 2.18 12.03 2.18c5.331 0 9.849 4.518 9.849 9.849 0 5.332-4.518 9.789-9.85 9.789z"/>
+    </svg>
+  </a>
+</div>
+
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img
+          src="images/logo.png"
+          alt="Pixel &amp; Protón"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='block';"
+        />
+        <span style="display:none;font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:700;color:#00f5ff;margin-bottom:16px;display:block;">PIXEL &amp; PROTÓN</span>
+        <p>Academia de robótica, programación y ciencias aplicadas para la nueva generación de líderes tecnológicos. 3 años masificando la innovación.</p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Navegación</h5>
+        <ul>
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#cursos">Cursos</a></li>
+          <li><a href="#quienes-somos">Quiénes Somos</a></li>
+          <li><a href="#eventos">Eventos</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Contacto</h5>
+        <ul>
+          <li>
+            <a href="https://wa.me/584242325923?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20Pixel%20%26%20Prot%C3%B3n%20y%20quiero%20m%C3%A1s%20informaci%C3%B3n%20sobre%20los%20cursos%2Feventos" target="_blank">
+              📱 WhatsApp
+            </a>
+          </li>
+          <li>
+            <a href="https://www.tiktok.com/@pixelproton?is_from_webapp=1&sender_device=pc" target="_blank">
+              🎵 TikTok @pixelproton
+            </a>
+          </li>
+          <li>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLScVIT6MAkHo0s6z-0B6X8tzrlmx1329d82YK7STiyDDcfs1SA/viewform?usp=publish-editor" target="_blank">
+              📝 Formulario de Inscripción
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2025 Pixel &amp; Protón · Academia de Robótica. Todos los derechos reservados.</span>
+      <span>Dir. Fabrizzio de Oliveira · Coord. Samuel Colmenarez</span>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ============================================================
+     MODALS
+============================================================ -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     SCRIPTS
+============================================================ -->
+<script>
+  /* ---------- Mobile menu ---------- */
+  const toggle = document.getElementById('menuToggle');
+  const mMenu  = document.getElementById('mobileMenu');
+  toggle.addEventListener('click', () => mMenu.classList.toggle('open'));
+  function closeMobile() { mMenu.classList.remove('open'); }
+
+  /* ---------- Countdown ---------- */
+  (function() {
+    const target = new Date('2026-07-03T23:59:59');
+    function tick() {
+      const now  = new Date();
+      const diff = target - now;
+      if (diff <= 0) {
+        document.getElementById('countdown').innerHTML =
+          '<p style="color:#ff6b00;font-family:Orbitron,sans-serif;font-size:1rem;">¡Inscripciones cerradas!</p>';
+        return;
+      }
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor((diff % 86400000) / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+      document.getElementById('cd-d').textContent = String(d).padStart(2,'0');
+      document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
+      document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
+      document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
+    }
+    tick();
+    setInterval(tick, 1000);
+  })();
+
+  /* ---------- Modal data ---------- */
+  const courses = {
+    robotica: {
+      icon: '🤖',
+      iconBg: 'rgba(0,245,255,.08)',
+      iconBorder: 'rgba(0,245,255,.2)',
+      title: 'Robótica Avanzada',
+      desc: 'Sumérgete en el mundo de la robótica desde cero hasta nivel competitivo. Aprenderás a diseñar, ensamblar y programar robots autónomos capaces de resolver desafíos del mundo real, incluyendo competencias oficiales de robótica creativa a nivel nacional.',
+      topics: [
+        'Introducción a sistemas mecatrónicos',
+        'Programación de microcontroladores (Arduino, ESP32)',
+        'Diseño de estructuras y chasis robóticos',
+        'Sensores, actuadores y sistemas de control',
+        'Algoritmos de movimiento autónomo',
+        'Estrategias de competencia y trabajo en equipo',
+      ],
+      level: 'Desde básico',
+      duration: 'Trimestral',
+      mode: 'Presencial',
+    },
+    poo: {
+      icon: '💻',
+      iconBg: 'rgba(124,58,237,.08)',
+      iconBorder: 'rgba(124,58,237,.2)',
+      title: 'Programación Orientada a Objetos',
+      desc: 'Domina el paradigma de programación más utilizado en la industria del software. Con Python y fundamentos de Java, aprenderás a construir aplicaciones escalables, reusables y bien estructuradas que son la base de cualquier carrera en tecnología.',
+      topics: [
+        'Fundamentos de lógica de programación',
+        'Clases, objetos, herencia y polimorfismo',
+        'Encapsulamiento y abstracción',
+        'Patrones de diseño fundamentales',
+        'Manejo de excepciones y depuración',
+        'Proyectos prácticos: apps, juegos y simulaciones',
+      ],
+      level: 'Intermedio',
+      duration: 'Trimestral',
+      mode: 'Presencial / Online',
+    },
+    electronica: {
+      icon: '⚡',
+      iconBg: 'rgba(255,107,0,.08)',
+      iconBorder: 'rgba(255,107,0,.2)',
+      title: 'Electrónica y Electricidad',
+      desc: 'Entiende cómo funciona la energía eléctrica y cómo controlarla para construir circuitos inteligentes. Desde la teoría de Ohm hasta el diseño de PCBs y prototipos con componentes reales en laboratorio.',
+      topics: [
+        'Fundamentos de electricidad y magnetismo',
+        'Circuitos en serie, paralelo y mixtos',
+        'Semiconductores: diodos, transistores, MOSFET',
+        'Amplificadores operacionales',
+        'Diseño de circuitos impresos (PCB)',
+        'Integración con sistemas de control (Arduino)',
+      ],
+      level: 'Básico a Intermedio',
+      duration: 'Trimestral',
+      mode: 'Presencial con laboratorio',
+    },
+    ia: {
+      icon: '🧠',
+      iconBg: 'rgba(168,85,247,.08)',
+      iconBorder: 'rgba(168,85,247,.2)',
+      title: 'Manejo y Uso de Inteligencia Artificial',
+      desc: 'La IA ya no es el futuro: es el presente. Aprende a usar, integrar y optimizar herramientas de inteligencia artificial en proyectos reales. Desde modelos de lenguaje hasta visión artificial y automatización de flujos de trabajo.',
+      topics: [
+        'Fundamentos conceptuales de la IA y ML',
+        'Prompting avanzado y RAG con LLMs',
+        'Integración de APIs de IA (OpenAI, Gemini, Claude)',
+        'Visión artificial con Python y OpenCV',
+        'Automatización de tareas con agentes IA',
+        'Ética y seguridad en el uso de IA',
+      ],
+      level: 'Básico a Avanzado',
+      duration: 'Trimestral',
+      mode: 'Presencial / Híbrido',
+    },
+    ingles: {
+      icon: '🌐',
+      iconBg: 'rgba(0,245,255,.06)',
+      iconBorder: 'rgba(0,245,255,.15)',
+      title: 'Inglés Técnico',
+      desc: 'El inglés es el lenguaje de la tecnología mundial. Desarrolla la capacidad de leer documentación técnica, participar en comunidades internacionales, escribir código comentado en inglés y comunicarte con equipos globales de desarrollo.',
+      topics: [
+        'Vocabulario técnico en informática y robótica',
+        'Lectura y comprensión de documentación oficial',
+        'Escritura de reportes y comentarios de código',
+        'Expresión oral en contextos STEM',
+        'Preparación para certificaciones internacionales',
+        'Participación en foros y comunidades tech',
+      ],
+      level: 'A1 a B2',
+      duration: 'Semestral',
+      mode: 'Presencial',
+    },
+    mecatronico: {
+      icon: '⚙️',
+      iconBg: 'rgba(255,107,0,.06)',
+      iconBorder: 'rgba(255,107,0,.15)',
+      title: 'Diseño Mecatrónico',
+      desc: 'La mecatrónica es la disciplina que une mecánica, electrónica e informática para crear sistemas inteligentes y autónomos. Aprenderás a diseñar máquinas complejas usando software CAD, simulación física y programación embebida.',
+      topics: [
+        'Fundamentos de mecánica aplicada',
+        'Diseño 3D con software CAD (Fusion 360 / SolidWorks)',
+        'Actuadores: servos, steppers, motores DC',
+        'Control PID y sistemas retroalimentados',
+        'Impresión 3D y fabricación de prototipos',
+        'Integración de sistemas electro-mecánicos',
+      ],
+      level: 'Intermedio a Avanzado',
+      duration: 'Trimestral',
+      mode: 'Presencial con laboratorio',
+    },
+  };
+
+  function openModal(key) {
+    const c   = courses[key];
+    const box = document.getElementById('modal-content');
+    box.innerHTML = `
+      <div class="modal-icon" style="background:${c.iconBg};border:1px solid ${c.iconBorder};">${c.icon}</div>
+      <h2>${c.title}</h2>
+      <p class="modal-desc">${c.desc}</p>
+      <div class="modal-meta">
+        <span class="meta-pill">📊 ${c.level}</span>
+        <span class="meta-pill">📅 ${c.duration}</span>
+        <span class="meta-pill">📍 ${c.mode}</span>
+      </div>
+      <div class="modal-topics">
+        <h4>Contenido del curso</h4>
+        <ul>${c.topics.map(t => `<li>${t}</li>`).join('')}</ul>
+      </div>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLScVIT6MAkHo0s6z-0B6X8tzrlmx1329d82YK7STiyDDcfs1SA/viewform?usp=publish-editor"
+         target="_blank" class="btn btn-primary" style="width:100%;justify-content:center;">
+        ⚡ Inscribirme en este curso
+      </a>
+    `;
+    document.getElementById('modal-overlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal(e) {
+    if (e && e.target !== document.getElementById('modal-overlay') && !e.target.classList.contains('modal-close')) return;
+    document.getElementById('modal-overlay').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal({}); });
+
+  /* ---------- Smooth nav highlight ---------- */
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (en.isIntersecting) {
+        navLinks.forEach(l => l.style.color = '');
+        const active = document.querySelector(`.nav-links a[href="#${en.target.id}"]`);
+        if (active) active.style.color = '#00f5ff';
+      }
+    });
+  }, { threshold: .4 });
+  sections.forEach(s => io.observe(s));
+</script>
+
+</body>
+</html>
