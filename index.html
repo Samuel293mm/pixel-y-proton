@@ -755,7 +755,7 @@
             z-index: 1;
         }
 
-        /* ============ SECCIÓN TESTIMONIOS (NUEVO) ============ */
+        /* ============ SECCIÓN TESTIMONIOS ============ */
         .testimonials {
             padding: var(--section-lg) 0;
             background: var(--snow-warm);
@@ -952,7 +952,7 @@
             line-height: 1.5;
         }
 
-        /* Formulario Inline */
+        /* Formulario Inline MEJORADO */
         .form-inline-wrapper {
             max-width: 750px;
             margin: 0 auto;
@@ -995,7 +995,8 @@
             margin-bottom: 6px;
             letter-spacing: 0.01em;
         }
-        .form-group input {
+        .form-group input,
+        .form-group select {
             width: 100%;
             padding: 14px 18px;
             padding-left: 48px;
@@ -1007,11 +1008,22 @@
             transition: all var(--transition-smooth);
             color: var(--text-dark);
             outline: none;
+            height: 52px;
+            -webkit-appearance: none;
+            appearance: none;
         }
-        .form-group input:focus {
+        .form-group input:focus,
+        .form-group select:focus {
             border-color: var(--purple-light);
             box-shadow: 0 0 0 4px rgba(108, 59, 184, 0.08);
             background: #fff;
+        }
+        /* Flecha de los select */
+        .form-group select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M6 8L1 3h10z' fill='%236b6b6b'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            padding-right: 40px;
         }
         .form-group .input-icon {
             position: absolute;
@@ -1023,7 +1035,9 @@
             transition: color var(--transition-smooth);
         }
         .form-group input:focus~.input-icon,
-        .form-group input:focus+.input-icon {
+        .form-group input:focus+.input-icon,
+        .form-group select:focus~.input-icon,
+        .form-group select:focus+.input-icon {
             color: var(--purple-light);
         }
         .whatsapp-icon-input {
@@ -1612,7 +1626,7 @@
         </div>
     </section>
 
-    <!-- ==================== SECCIÓN TESTIMONIOS (NUEVO) ==================== -->
+    <!-- ==================== SECCIÓN TESTIMONIOS ==================== -->
     <section class="testimonials reveal" id="testimonios">
         <div class="container-narrow">
             <div class="section-header">
@@ -1649,6 +1663,7 @@
                         <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                         <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                         <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                     </div>
                     <p class="testimonial-text">“La academia no solo enseña tecnología, sino que fomenta el trabajo en equipo y la creatividad. Mi hija ya está pensando en estudiar ingeniería.”</p>
                     <div class="testimonial-author">
@@ -1663,6 +1678,7 @@
                 <!-- Testimonio 3 (Participante) -->
                 <div class="testimonial-card reveal reveal-delay-3">
                     <div class="testimonial-stars">
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                         <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                         <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                         <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
@@ -1723,11 +1739,73 @@
                 </div>
             </div>
 
-            <!-- Formulario Inline -->
+            <!-- Formulario Inline CORREGIDO -->
             <div class="form-inline-wrapper reveal reveal-delay-2" id="formulario">
                 <h3>📋 Solicita Información</h3>
                 <p class="form-subtitle">Te contactaremos por <strong style="color:var(--whatsapp-dark);">WhatsApp</strong> en menos de 24 horas</p>
                 <form id="leadForm" action="https://formspree.io/f/xwvdqakz" method="POST">
+                    
+                    <!-- Fila 1: Rol y Edad -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="role">¿Quién se inscribe?</label>
+                            <span class="input-icon">👤</span>
+                            <select id="role" name="role" required>
+                                <option value="">Selecciona una opción</option>
+                                <option value="Padre/Madre">Padre / Madre</option>
+                                <option value="Estudiante">Estudiante</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group" id="age-group" style="display: none; flex-direction: column; align-items: center; justify-content: flex-start;">
+                            <label for="age" style="text-align: center; width: 100%; display: block; margin-bottom: 6px;">Edad</label>
+                            <select id="age" name="age" required style="width: 100%; padding-left: 14px; text-align-last: center;">
+                                <option value="">Selecciona</option>
+                                <option value="9">9 años</option>
+                                <option value="10">10 años</option>
+                                <option value="11">11 años</option>
+                                <option value="12">12 años</option>
+                                <option value="13">13 años</option>
+                                <option value="14">14 años</option>
+                                <option value="15">15 años</option>
+                                <option value="16">16 años</option>
+                                <option value="17">17 años</option>
+                                <option value="18">18 años</option>
+                                <option value="19">19 años</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Fila 2: Interés -->
+                    <div class="form-row">
+                        <div class="form-group" style="flex: 1 1 100%;">
+                            <label for="interest">¿Qué te interesa?</label>
+                            <span class="input-icon">💡</span>
+                            <select id="interest" name="interest" required>
+                                <option value="">Selecciona una opción</option>
+                                <option value="Información General">Información General</option>
+                                <option value="Clase Muestra">Tomar una Clase Muestra</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Fila 3: Curso de interés (Aparece solo si eligen Clase Muestra) -->
+                    <div class="form-row" id="course-group" style="display: none;">
+                        <div class="form-group" style="flex: 1 1 100%;">
+                            <label for="course_interest">¿Qué curso te interesa?</label>
+                            <span class="input-icon">🎯</span>
+                            <select id="course_interest" name="course_interest" style="width: 100%; padding-left: 48px;">
+                                <option value="">Selecciona un curso</option>
+                                <option value="Inglés">Inglés</option>
+                                <option value="Robótica Avanzada">Robótica Avanzada</option>
+                                <option value="Programación en C++">Programación en C++</option>
+                                <option value="Electricidad y Electrónica">Electricidad y Electrónica</option>
+                                <option value="Nanotecnología Básica">Nanotecnología Básica</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Fila 4: Nombre y WhatsApp -->
                     <div class="form-row">
                         <div class="form-group">
                             <label for="nombre">Nombre completo</label>
@@ -1746,6 +1824,7 @@
                             <input type="tel" id="whatsapp" name="whatsapp" placeholder="" required autocomplete="tel">
                         </div>
                     </div>
+
                     <button type="submit" class="btn-submit btn" style="margin-top:20px;">
                         <span class="btn-text">📩 Solicitar Información</span>
                         <span class="wave-inner"></span>
@@ -1940,6 +2019,43 @@
         });
 
         revealElements.forEach(el => revealObserver.observe(el));
+
+        // ============ LOGICA CONDICIONAL DEL FORMULARIO ============
+        // 1. Lógica de Rol y Edad
+        const roleSelect = document.getElementById('role');
+        const ageGroup = document.getElementById('age-group');
+        const ageInput = document.getElementById('age');
+
+        if (roleSelect) {
+            roleSelect.addEventListener('change', function() {
+                if (this.value === 'Estudiante') {
+                    ageGroup.style.display = 'flex';
+                    ageInput.setAttribute('required', 'required');
+                } else {
+                    ageGroup.style.display = 'none';
+                    ageInput.removeAttribute('required');
+                    ageInput.value = ''; 
+                }
+            });
+        }
+
+        // 2. Lógica de Interés y Curso
+        const interestSelect = document.getElementById('interest');
+        const courseGroup = document.getElementById('course-group');
+        const courseInput = document.getElementById('course_interest');
+
+        if (interestSelect) {
+            interestSelect.addEventListener('change', function() {
+                if (this.value === 'Clase Muestra') {
+                    courseGroup.style.display = 'flex';
+                    courseInput.setAttribute('required', 'required');
+                } else {
+                    courseGroup.style.display = 'none';
+                    courseInput.removeAttribute('required');
+                    courseInput.value = ''; // Limpia el campo si se oculta
+                }
+            });
+        }
 
         // ============ FORMULARIO FORSPREE ============
         const form = document.getElementById('leadForm');
