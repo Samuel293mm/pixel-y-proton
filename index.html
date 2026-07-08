@@ -37,33 +37,6 @@
     }
     </script>
 
-    <!-- ==================== CÓDIGO BASE DEL PÍXEL DE FACEBOOK/META (DESCOMENTAR AL CREAR CUENTA) ==================== -->
-    <!--
-    <script>
-      !function(f,b,e,v,n,t,s)
-      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-      n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src=v;s=b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t,s)}(window, document,'script',
-      'https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', 'TU_ID_DE_PIXEL_AQUI');
-      fbq('track', 'PageView');
-    </script>
-    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=TU_ID_DE_PIXEL_AQUI&ev=PageView&noscript=1"/></noscript>
-    -->
-
-    <!-- ==================== CÓDIGO BASE DEL PÍXEL DE TIKTOK (DESCOMENTAR AL CREAR CUENTA) ==================== -->
-    <!--
-    <script>
-      !function (w, d, t) {
-        w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=ttq._t[e]||{t:new Date.getTime()},ttq._t[e].o=n;var o=document.createElement("script");o.type="text/javascript",o.async=!0,o.src=i+"?sdkid="+e+"&lib="+t;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};ttq.load('TU_ID_DE_PIXEL_AQUI');
-        ttq.page();
-      }(window, document, 'ttq');
-    </script>
-    -->
-
     <style>
         :root {
             --deep-teal: #0f2c33;
@@ -952,7 +925,7 @@
             line-height: 1.5;
         }
 
-        /* Formulario Inline MEJORADO */
+        /* Formulario Inline CORREGIDO */
         .form-inline-wrapper {
             max-width: 750px;
             margin: 0 auto;
@@ -1018,7 +991,6 @@
             box-shadow: 0 0 0 4px rgba(108, 59, 184, 0.08);
             background: #fff;
         }
-        /* Flecha de los select */
         .form-group select {
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M6 8L1 3h10z' fill='%236b6b6b'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
@@ -1163,47 +1135,15 @@
             font-size: 1rem;
         }
         
-        /* CAMBIO DE ESTILO PARA CORREGIR EL COLOR DEL TEXTO */
         .sumo-description {
-            color: #ffffff !important; /* Fuerza el blanco puro */
+            color: #ffffff !important;
             font-size: 1.05rem;
             margin: 16px 0 28px;
             line-height: 1.7;
             max-width: 550px;
             margin-left: auto;
             margin-right: auto;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.4); /* Sombra para que resalte sobre el fondo oscuro */
-        }
-
-        .btn-sumo {
-            background: linear-gradient(135deg, #e63946, #c1121f);
-            color: #fff;
-            font-weight: 700;
-            font-size: 1.1rem;
-            padding: 18px 40px;
-            border-radius: 50px;
-            border: none;
-            cursor: pointer;
-            font-family: 'Poppins', sans-serif;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            position: relative;
-            overflow: hidden;
-            box-shadow:
-                0 8px 30px rgba(230, 57, 70, 0.5),
-                inset 0 2px 0 rgba(255, 255, 255, 0.25);
-            transition: all var(--transition-smooth);
-            letter-spacing: 0.02em;
-        }
-        .btn-sumo:hover {
-            background: linear-gradient(135deg, #f04c57, #d62c38);
-            transform: translateY(-3px);
-            box-shadow: 0 16px 44px rgba(230, 57, 70, 0.6);
-        }
-        .btn-sumo:active {
-            transform: scale(0.96);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.4);
         }
 
         /* ============ ESTILOS DEL CONTADOR ============ */
@@ -1264,6 +1204,17 @@
         @media (max-width: 480px) {
             #countdown-container { gap: 8px; }
             .countdown-box { min-width: 55px; padding: 8px; }
+        }
+
+        /* ============ CORRECCIÓN PARA EL BOTÓN ROJO DE SUMO ============ */
+        .btn-sumo:link,
+        .btn-sumo:visited,
+        .btn-sumo:hover,
+        .btn-sumo:active {
+            color: #ffffff !important;
+            background: linear-gradient(135deg, #e63946, #c1121f) !important;
+            text-decoration: none !important;
+            box-shadow: 0 8px 30px rgba(230, 57, 70, 0.5), inset 0 2px 0 rgba(255, 255, 255, 0.25) !important;
         }
 
         /* ============ FOOTER ============ */
@@ -1663,7 +1614,6 @@
                         <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                         <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                         <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                     </div>
                     <p class="testimonial-text">“La academia no solo enseña tecnología, sino que fomenta el trabajo en equipo y la creatividad. Mi hija ya está pensando en estudiar ingeniería.”</p>
                     <div class="testimonial-author">
@@ -1678,7 +1628,6 @@
                 <!-- Testimonio 3 (Participante) -->
                 <div class="testimonial-card reveal reveal-delay-3">
                     <div class="testimonial-stars">
-                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                         <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                         <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                         <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
@@ -1739,7 +1688,7 @@
                 </div>
             </div>
 
-            <!-- Formulario Inline CORREGIDO -->
+            <!-- Formulario Inline -->
             <div class="form-inline-wrapper reveal reveal-delay-2" id="formulario">
                 <h3>📋 Solicita Información</h3>
                 <p class="form-subtitle">Te contactaremos por <strong style="color:var(--whatsapp-dark);">WhatsApp</strong> en menos de 24 horas</p>
@@ -1837,7 +1786,7 @@
         </div>
     </section>
 
-    <!-- ==================== SECCIÓN SUMO ==================== -->
+    <!-- ==================== SECCIÓN SUMO (CORREGIDA) ==================== -->
     <section class="sumo-section" id="sumo">
         <div class="container-narrow">
             <div class="sumo-content reveal">
@@ -1858,24 +1807,21 @@
                     <p class="sumo-subtitle">FUERZA • ESTRATEGIA • INGENIO</p>
                 </div>
                 
-                <div class="sumo-description">
-                    <div style="color: #ffffff; font-weight: 500; margin-bottom: 15px;">
-                        ¿Estás listo para llevar tu pasión por la robótica al siguiente nivel?
+                <div class="sumo-description" style="max-width: 500px;">
+                    <div style="color: #ffffff; font-weight: 500; margin-bottom: 15px; font-size: 1.1rem;">
+                        La única competencia que te lleva a las ORC 2027.
                     </div>
-                    <div style="color: #ffffff; line-height: 1.8;">
-                        Esta no es solo una competencia; es el <strong>trampolín hacia las Olimpiadas de Robótica Creativas (ORC) 2027</strong>. 
-                        Mientras otros apenas sueñan con llegar, en <strong>Pixel & Protón</strong> tenemos la experiencia para llevarte hasta la cima. 
+                    <div style="color: #ffffff; line-height: 1.6;">
+                        <span style="background: rgba(255,255,255,0.15); padding: 4px 15px; border-radius: 50px; display: inline-block; border: 1px solid rgba(255,255,255,0.3);">
+                            🔥 <strong>Clasificamos a 2 equipos a la Etapa Nacional.</strong>
+                        </span>
                         <br><br>
-                        <div style="background: rgba(255,255,255,0.15); padding: 8px 20px; border-radius: 50px; display: inline-block; border: 1px solid rgba(255,255,255,0.3); margin: 5px 0; backdrop-filter: blur(4px);">
-                            🔥 <strong>Hemos clasificado a 2 equipos distintos a la etapa nacional de la ORC consecutivamente.</strong>
-                        </div>
-                        <br><br>
-                        La diferencia de participar con nosotros es el <strong>respaldo, el conocimiento y la estrategia</strong> que te garantizan no solo competir, sino <strong>llegar lejos</strong>. ¿El objetivo? Representar a tu estado y, ¿por qué no?, cruzar las fronteras hacia la competición internacional.
+                        ¿El objetivo? Representar a tu estado y cruzar las fronteras.
                     </div>
                 </div>
 
                 <!-- CONTADOR REGRESIVO (Cierre 20 de Julio) -->
-                <div class="countdown-wrapper">
+                <div class="countdown-wrapper" style="margin-bottom: 10px;">
                     <div class="countdown-title">⏳ ¡Las inscripciones cierran en!</div>
                     <div id="countdown-container">
                         <div class="countdown-box">
@@ -1898,317 +1844,331 @@
                     <p class="countdown-subtext">*Plazo límite: 20 de Julio de 2026</p>
                 </div>
 
-                <div class="sumo-description" style="margin-top: 10px;">
-                    <strong style="color: #ffffff;">Categorías:</strong> Desafío (9-15 años) | Innovación (16-19 años).<br>
-                    <strong style="color: #ffffff;">Equipos:</strong> 2 a 3 integrantes.<br>
-                    <strong style="color: #ffffff;">Formato:</strong> Rondas Clasificatorias, Repechaje y Gran Final. ¡Incluye Trivia de Conocimientos y Premio del Pueblo a la Creatividad!
+                <!-- BOTONES DE ACCIÓN (JUNTOS Y ARRIBA) -->
+                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin: 25px 0 30px 0;">
+                    
+                    <!-- Botón 1: Inscribir Equipo (Principal) -->
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLScVIT6MAkHo0s6z-0B6X8tzrlmx1329d82YK7STiyDDcfs1SA/viewform?usp=publish-editor"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn-sumo btn">
+                    <span class="btn-text">🤖 ¡Asegura tu Cupo AHORA!</span>
+                    <span class="wave-inner"></span>
+                    </a>
+
+                    <!-- Botón 2: Descargar Reglamento (Secundario) -->
+                    <a href="Reglamento Oficial-PixelyProtón-Oficial.pdf" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       class="btn" 
+                       style="background: rgba(255, 255, 255, 0.08); color: #ffffff; border: 2px solid rgba(255, 255, 255, 0.4); font-weight: 600; font-size: 1rem; border-radius: 50px; padding: 15px 32px; text-decoration: none !important;">
+                        <span class="btn-text">📄 Descarga el Reglamento</span>
+                        <span class="wave-inner"></span>
+                    </a>
                 </div>
 
-                <!-- Botón de Acción (Google Forms) -->
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLScVIT6MAkHo0s6z-0B6X8tzrlmx1329d82YK7STiyDDcfs1SA/viewform?usp=publish-editor"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn-sumo btn">
-                <span class="btn-text">🤖 ¡Asegura tu Cupo AHORA!</span>
-                <span class="wave-inner"></span>
-            </a>
+                <!-- Información Técnica Rápida (Debajo de los botones) -->
+                <div class="sumo-description" style="margin-top: 0px; margin-bottom: 10px;">
+                    <strong style="color: #ffffff;">Categorías:</strong> Desafío (9-15 años) | Innovación (16-19 años).<br>
+                    <strong style="color: #ffffff;">Equipos:</strong> 2 a 3 integrantes.
+                </div>
 
-            <!-- Copy de Inscripción -->
-            <p style="margin-top: 25px; color: rgba(255, 255, 255, 0.6); font-size: 0.85rem;">
-                *No esperes al último día. Asegura el cupo de tu equipo y comienza a diseñar tu robot campeón.
-            </p>
+                <!-- Copy de Inscripción -->
+                <p style="margin-top: 15px; color: rgba(255, 255, 255, 0.5); font-size: 0.85rem;">
+                    *El reglamento detalla las especificaciones técnicas, el ring y el sistema de puntuación.
+                </p>
 
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- ==================== FOOTER ==================== -->
-<footer class="footer">
-    <div class="container">
-        <p>&copy; 2026 Academia de Robótica y Ciencias. Todos los derechos reservados.</p>
-        <p style="margin-top:4px;">Contáctanos por <a href="#formulario">WhatsApp</a> | Estado Miranda, Venezuela</p>
-    </div>
-</footer>
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Academia de Robótica y Ciencias. Todos los derechos reservados.</p>
+            <p style="margin-top:4px;">Contáctanos por <a href="#formulario">WhatsApp</a> | Estado Miranda, Venezuela</p>
+        </div>
+    </footer>
 
-<!-- ==================== FLOATING BUTTONS ==================== -->
-<a href="https://www.tiktok.com/@pixelproton?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener noreferrer" class="floating-tiktok" aria-label="Síguenos en TikTok" title="Síguenos en TikTok">
-    <img src="images/tiktok.png" alt="TikTok">
-</a>
+    <!-- ==================== FLOATING BUTTONS ==================== -->
+    <a href="https://www.tiktok.com/@pixelproton?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener noreferrer" class="floating-tiktok" aria-label="Síguenos en TikTok" title="Síguenos en TikTok">
+        <img src="images/tiktok.png" alt="TikTok">
+    </a>
 
-<a href="https://wa.me/584242325923" target="_blank" rel="noopener noreferrer" class="floating-whatsapp" aria-label="Contáctanos por WhatsApp" title="Contáctanos por WhatsApp">
-    <svg viewBox="0 0 24 24">
-        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-    </svg>
-</a>
+    <a href="https://wa.me/584242325923" target="_blank" rel="noopener noreferrer" class="floating-whatsapp" aria-label="Contáctanos por WhatsApp" title="Contáctanos por WhatsApp">
+        <svg viewBox="0 0 24 24">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+    </a>
 
-<script>
-    (function() {
-        // ============ NAVBAR SCROLL ============
-        const navbar = document.getElementById('navbar');
-        let lastScroll = 0;
-        const scrollThreshold = 50;
+    <script>
+        (function() {
+            // ============ NAVBAR SCROLL ============
+            const navbar = document.getElementById('navbar');
+            let lastScroll = 0;
+            const scrollThreshold = 50;
 
-        function updateNavbar() {
-            const currentScroll = window.pageYOffset;
-            if (currentScroll > scrollThreshold) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
+            function updateNavbar() {
+                const currentScroll = window.pageYOffset;
+                if (currentScroll > scrollThreshold) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+                lastScroll = currentScroll;
             }
-            lastScroll = currentScroll;
-        }
-        window.addEventListener('scroll', updateNavbar, { passive: true });
-        updateNavbar();
+            window.addEventListener('scroll', updateNavbar, { passive: true });
+            updateNavbar();
 
-        // ============ EFECTO WAVE EN BOTONES ============
-        function createRipple(e, button) {
-            const ripple = document.createElement('span');
-            ripple.classList.add('ripple');
-            const rect = button.getBoundingClientRect();
-            const size = Math.max(rect.width, rect.height);
-            ripple.style.width = ripple.style.height = size + 'px';
-            ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
-            ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
-            button.appendChild(ripple);
-            ripple.addEventListener('animationend', () => {
-                ripple.remove();
-            });
-        }
+            // ============ EFECTO WAVE EN BOTONES ============
+            function createRipple(e, button) {
+                const ripple = document.createElement('span');
+                ripple.classList.add('ripple');
+                const rect = button.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+                ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+                button.appendChild(ripple);
+                ripple.addEventListener('animationend', () => {
+                    ripple.remove();
+                });
+            }
 
-        function activateWave(button) {
-            if (button.classList.contains('active')) return;
-            button.classList.add('active');
-            setTimeout(() => {
-                button.classList.remove('active');
-            }, 600);
-        }
+            function activateWave(button) {
+                if (button.classList.contains('active')) return;
+                button.classList.add('active');
+                setTimeout(() => {
+                    button.classList.remove('active');
+                }, 600);
+            }
 
-        document.querySelectorAll('.btn').forEach(button => {
-            button.addEventListener('click', function(e) {
-                createRipple(e, this);
-                activateWave(this);
-            });
-            // Soporte para teclado
-            button.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    const rect = this.getBoundingClientRect();
-                    const fakeEvent = {
-                        clientX: rect.left + rect.width / 2,
-                        clientY: rect.top + rect.height / 2
-                    };
-                    createRipple(fakeEvent, this);
+            document.querySelectorAll('.btn').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    createRipple(e, this);
                     activateWave(this);
-                    this.click();
-                }
-            });
-        });
-
-        // ============ SCROLL REVEAL ============
-        const revealElements = document.querySelectorAll('.reveal');
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    revealObserver.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.15,
-            rootMargin: '0px 0px -40px 0px'
-        });
-
-        revealElements.forEach(el => revealObserver.observe(el));
-
-        // ============ LOGICA CONDICIONAL DEL FORMULARIO ============
-        // 1. Lógica de Rol y Edad
-        const roleSelect = document.getElementById('role');
-        const ageGroup = document.getElementById('age-group');
-        const ageInput = document.getElementById('age');
-
-        if (roleSelect) {
-            roleSelect.addEventListener('change', function() {
-                if (this.value === 'Estudiante') {
-                    ageGroup.style.display = 'flex';
-                    ageInput.setAttribute('required', 'required');
-                } else {
-                    ageGroup.style.display = 'none';
-                    ageInput.removeAttribute('required');
-                    ageInput.value = ''; 
-                }
-            });
-        }
-
-        // 2. Lógica de Interés y Curso
-        const interestSelect = document.getElementById('interest');
-        const courseGroup = document.getElementById('course-group');
-        const courseInput = document.getElementById('course_interest');
-
-        if (interestSelect) {
-            interestSelect.addEventListener('change', function() {
-                if (this.value === 'Clase Muestra') {
-                    courseGroup.style.display = 'flex';
-                    courseInput.setAttribute('required', 'required');
-                } else {
-                    courseGroup.style.display = 'none';
-                    courseInput.removeAttribute('required');
-                    courseInput.value = ''; // Limpia el campo si se oculta
-                }
-            });
-        }
-
-        // ============ FORMULARIO FORSPREE ============
-        const form = document.getElementById('leadForm');
-        const formSuccess = document.getElementById('formSuccess');
-
-        form.addEventListener('submit', async function(e) {
-            e.preventDefault();
-
-            const submitBtn = form.querySelector('.btn-submit');
-            const originalText = submitBtn.querySelector('.btn-text').textContent;
-            submitBtn.querySelector('.btn-text').textContent = '⏳ Enviando...';
-            submitBtn.disabled = true;
-            submitBtn.style.opacity = '0.7';
-            submitBtn.style.pointerEvents = 'none';
-
-            try {
-                const formData = new FormData(form);
-                const response = await fetch(form.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'Accept': 'application/json'
+                });
+                // Soporte para teclado
+                button.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        const rect = this.getBoundingClientRect();
+                        const fakeEvent = {
+                            clientX: rect.left + rect.width / 2,
+                            clientY: rect.top + rect.height / 2
+                        };
+                        createRipple(fakeEvent, this);
+                        activateWave(this);
+                        this.click();
                     }
                 });
+            });
 
-                if (response.ok) {
-                    form.style.display = 'none';
-                    formSuccess.style.display = 'block';
-                    // Scroll al mensaje de éxito
-                    formSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                } else {
-                    const errorData = await response.json().catch(() => ({}));
-                    if (errorData.error) {
-                        alert('⚠️ Error: ' + errorData.error + '\nPor favor, intenta de nuevo o contáctanos directamente por WhatsApp.');
-                    } else {
-                        alert('⚠️ Hubo un problema al enviar. Por favor, intenta de nuevo o escríbenos directamente por WhatsApp.');
+            // ============ SCROLL REVEAL ============
+            const revealElements = document.querySelectorAll('.reveal');
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        revealObserver.unobserve(entry.target);
                     }
+                });
+            }, {
+                threshold: 0.15,
+                rootMargin: '0px 0px -40px 0px'
+            });
+
+            revealElements.forEach(el => revealObserver.observe(el));
+
+            // ============ LOGICA CONDICIONAL DEL FORMULARIO ============
+            // 1. Lógica de Rol y Edad
+            const roleSelect = document.getElementById('role');
+            const ageGroup = document.getElementById('age-group');
+            const ageInput = document.getElementById('age');
+
+            if (roleSelect) {
+                roleSelect.addEventListener('change', function() {
+                    if (this.value === 'Estudiante') {
+                        ageGroup.style.display = 'flex';
+                        ageInput.setAttribute('required', 'required');
+                    } else {
+                        ageGroup.style.display = 'none';
+                        ageInput.removeAttribute('required');
+                        ageInput.value = ''; 
+                    }
+                });
+            }
+
+            // 2. Lógica de Interés y Curso
+            const interestSelect = document.getElementById('interest');
+            const courseGroup = document.getElementById('course-group');
+            const courseInput = document.getElementById('course_interest');
+
+            if (interestSelect) {
+                interestSelect.addEventListener('change', function() {
+                    if (this.value === 'Clase Muestra') {
+                        courseGroup.style.display = 'flex';
+                        courseInput.setAttribute('required', 'required');
+                    } else {
+                        courseGroup.style.display = 'none';
+                        courseInput.removeAttribute('required');
+                        courseInput.value = ''; 
+                    }
+                });
+            }
+
+            // ============ FORMULARIO FORSPREE ============
+            const form = document.getElementById('leadForm');
+            const formSuccess = document.getElementById('formSuccess');
+
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                const submitBtn = form.querySelector('.btn-submit');
+                const originalText = submitBtn.querySelector('.btn-text').textContent;
+                submitBtn.querySelector('.btn-text').textContent = '⏳ Enviando...';
+                submitBtn.disabled = true;
+                submitBtn.style.opacity = '0.7';
+                submitBtn.style.pointerEvents = 'none';
+
+                try {
+                    const formData = new FormData(form);
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+
+                    if (response.ok) {
+                        form.style.display = 'none';
+                        formSuccess.style.display = 'block';
+                        // Scroll al mensaje de éxito
+                        formSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    } else {
+                        const errorData = await response.json().catch(() => ({}));
+                        if (errorData.error) {
+                            alert('⚠️ Error: ' + errorData.error + '\nPor favor, intenta de nuevo o contáctanos directamente por WhatsApp.');
+                        } else {
+                            alert('⚠️ Hubo un problema al enviar. Por favor, intenta de nuevo o escríbenos directamente por WhatsApp.');
+                        }
+                        submitBtn.querySelector('.btn-text').textContent = originalText;
+                        submitBtn.disabled = false;
+                        submitBtn.style.opacity = '1';
+                        submitBtn.style.pointerEvents = 'auto';
+                    }
+                } catch (error) {
+                    console.error('Error de conexión:', error);
+                    alert('⚠️ Error de conexión. Verifica tu internet e intenta de nuevo, o contáctanos directamente por WhatsApp.');
                     submitBtn.querySelector('.btn-text').textContent = originalText;
                     submitBtn.disabled = false;
                     submitBtn.style.opacity = '1';
                     submitBtn.style.pointerEvents = 'auto';
                 }
-            } catch (error) {
-                console.error('Error de conexión:', error);
-                alert('⚠️ Error de conexión. Verifica tu internet e intenta de nuevo, o contáctanos directamente por WhatsApp.');
-                submitBtn.querySelector('.btn-text').textContent = originalText;
-                submitBtn.disabled = false;
-                submitBtn.style.opacity = '1';
-                submitBtn.style.pointerEvents = 'auto';
-            }
-        });
-
-        // ============ SMOOTH SCROLL PARA ANCLAS ============
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
-                if (href === '#') return;
-                const target = document.querySelector(href);
-                if (target) {
-                    e.preventDefault();
-                    const navHeight = navbar.offsetHeight + 20;
-                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset -
-                        navHeight;
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
-                }
             });
-        });
 
-        // ============ INICIALIZAR REVEAL EN ELEMENTOS VISIBLES AL CARGAR ============
-        setTimeout(() => {
-            revealElements.forEach(el => {
-                const rect = el.getBoundingClientRect();
-                if (rect.top < window.innerHeight && rect.bottom > 0) {
-                    el.classList.add('visible');
-                    revealObserver.unobserve(el);
-                }
-            });
-        }, 150);
-
-        console.log('🚀 Academia de Robótica y Ciencias - Landing Page lista');
-        console.log('📊 Formspree endpoint: https://formspree.io/f/xwvdqakz');
-
-        // ============ CONTADOR REGRESIVO PARA EL 20 DE JULIO ============
-        // Fecha límite: 20 de Julio de 2026 a las 11:59:59 PM
-        const countDownDate = new Date("Jul 20, 2026 23:59:59").getTime();
-
-        const timer = setInterval(function() {
-          const now = new Date().getTime();
-          const distance = countDownDate - now;
-
-          // Cálculos para días, horas, minutos y segundos
-          const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-          const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-          const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-          const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-          // Mostrar en el DOM
-          document.getElementById("days").textContent = days < 10 ? "0" + days : days;
-          document.getElementById("hours").textContent = hours < 10 ? "0" + hours : hours;
-          document.getElementById("minutes").textContent = minutes < 10 ? "0" + minutes : minutes;
-          document.getElementById("seconds").textContent = seconds < 10 ? "0" + seconds : seconds;
-
-          // Si el contador llega a 0, mostrar mensaje
-          if (distance < 0) {
-            clearInterval(timer);
-            document.getElementById("countdown-container").innerHTML = "<div style='color:#fff; font-weight:bold;'>⏰ ¡INSCRIPCIONES CERRADAS!</div>";
-          }
-        }, 1000);
-
-        // ============ CONTADOR ANIMADO (ESTUDIANTES Y ORC) ============
-        const counterElements = document.querySelectorAll('.counter');
-        const statsSection = document.querySelector('.trust-stats');
-        let countingStarted = false;
-
-        function animateCounters() {
-            counterElements.forEach(counter => {
-                const target = parseInt(counter.getAttribute('data-target'));
-                const duration = 2000; // 2 segundos
-                const stepTime = 15;
-                const steps = duration / stepTime;
-                let current = 0;
-                const increment = target / steps;
-
-                const timer = setInterval(() => {
-                    current += increment;
-                    if (current >= target) {
-                        counter.textContent = target;
-                        clearInterval(timer);
-                    } else {
-                        counter.textContent = Math.floor(current);
+            // ============ SMOOTH SCROLL PARA ANCLAS ============
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href === '#') return;
+                    const target = document.querySelector(href);
+                    if (target) {
+                        e.preventDefault();
+                        const navHeight = navbar.offsetHeight + 20;
+                        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset -
+                            navHeight;
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
                     }
-                }, stepTime);
+                });
             });
-        }
 
-        const statsObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !countingStarted) {
-                    countingStarted = true;
-                    animateCounters();
-                    statsObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.5 });
+            // ============ INICIALIZAR REVEAL EN ELEMENTOS VISIBLES AL CARGAR ============
+            setTimeout(() => {
+                revealElements.forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    if (rect.top < window.innerHeight && rect.bottom > 0) {
+                        el.classList.add('visible');
+                        revealObserver.unobserve(el);
+                    }
+                });
+            }, 150);
 
-        if (statsSection) {
-            statsObserver.observe(statsSection);
-        }
+            console.log('🚀 Academia de Robótica y Ciencias - Landing Page lista');
+            console.log('📊 Formspree endpoint: https://formspree.io/f/xwvdqakz');
 
-    })();
-</script>
+            // ============ CONTADOR REGRESIVO PARA EL 20 DE JULIO ============
+            // Fecha límite: 20 de Julio de 2026 a las 11:59:59 PM
+            const countDownDate = new Date("Jul 20, 2026 23:59:59").getTime();
+
+            const timer = setInterval(function() {
+              const now = new Date().getTime();
+              const distance = countDownDate - now;
+
+              // Cálculos para días, horas, minutos y segundos
+              const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+              const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+              const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+              const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+              // Mostrar en el DOM
+              document.getElementById("days").textContent = days < 10 ? "0" + days : days;
+              document.getElementById("hours").textContent = hours < 10 ? "0" + hours : hours;
+              document.getElementById("minutes").textContent = minutes < 10 ? "0" + minutes : minutes;
+              document.getElementById("seconds").textContent = seconds < 10 ? "0" + seconds : seconds;
+
+              // Si el contador llega a 0, mostrar mensaje
+              if (distance < 0) {
+                clearInterval(timer);
+                document.getElementById("countdown-container").innerHTML = "<div style='color:#fff; font-weight:bold;'>⏰ ¡INSCRIPCIONES CERRADAS!</div>";
+              }
+            }, 1000);
+
+            // ============ CONTADOR ANIMADO (ESTUDIANTES Y ORC) ============
+            const counterElements = document.querySelectorAll('.counter');
+            const statsSection = document.querySelector('.trust-stats');
+            let countingStarted = false;
+
+            function animateCounters() {
+                counterElements.forEach(counter => {
+                    const target = parseInt(counter.getAttribute('data-target'));
+                    const duration = 2000; // 2 segundos
+                    const stepTime = 15;
+                    const steps = duration / stepTime;
+                    let current = 0;
+                    const increment = target / steps;
+
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= target) {
+                            counter.textContent = target;
+                            clearInterval(timer);
+                        } else {
+                            counter.textContent = Math.floor(current);
+                        }
+                    }, stepTime);
+                });
+            }
+
+            const statsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !countingStarted) {
+                        countingStarted = true;
+                        animateCounters();
+                        statsObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            if (statsSection) {
+                statsObserver.observe(statsSection);
+            }
+
+        })();
+    </script>
 </body>
 </html>
