@@ -632,13 +632,16 @@
             border-radius: 2px;
             margin: 0 auto;
         }
+        
+        /* ACTUALIZADO PARA 3 COLUMNAS EN ESCRITORIO */
         .directors-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(3, 1fr); 
             gap: clamp(24px, 3.5vw, 48px);
-            max-width: 950px;
+            max-width: 1100px;
             margin: 0 auto;
         }
+        
         .director-card {
             background: var(--glass-bg);
             backdrop-filter: blur(20px);
@@ -1344,8 +1347,8 @@
                 grid-template-columns: repeat(2, 1fr);
             }
             .directors-grid {
-                grid-template-columns: 1fr;
-                max-width: 450px;
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 600px;
             }
         }
         @media (max-width: 768px) {
@@ -1384,6 +1387,10 @@
             }
             .director-card {
                 padding: 24px 20px;
+            }
+            .directors-grid {
+                grid-template-columns: 1fr;
+                max-width: 450px;
             }
         }
         @media (max-width: 480px) {
@@ -1530,11 +1537,11 @@
                     <div class="stat-label">Equipos Etapa Estadal ORC</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number"><span class="counter" data-target="5">0</span>+</div>
+                    <div class="stat-number"><span class="counter" data-target="7">0</span>+</div>
                     <div class="stat-label">Equipos Fase Regional ORC</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number"><span class="counter" data-target="2">0</span>+</div>
+                    <div class="stat-number"><span class="counter" data-target="4">0</span>+</div>
                     <div class="stat-label">Equipos Etapa Nacional ORC</div>
                 </div>
             </div>
@@ -1548,7 +1555,7 @@
         </div>
     </section>
 
-    <!-- ==================== SECCIÓN DIRECTORES ==================== -->
+    <!-- ==================== SECCIÓN DIRECTORES (CON 3 MIEMBROS) ==================== -->
     <section class="directors" id="directores">
         <div class="container-narrow">
             <div class="section-header reveal">
@@ -1565,6 +1572,7 @@
                     <p>Especialista con más de 3 años de experiencia en ciencia y tecnología educativa. Ha guiado a equipos estudiantiles hacia la excelencia en competencias nacionales.</p>
                     <span class="director-badge">🏆 Olimpiadas de Robótica Creativas 2025-2026</span>
                 </div>
+                
                 <!-- Director 2 -->
                 <div class="director-card reveal reveal-delay-2">
                     <div class="director-avatar">FO</div>
@@ -1572,6 +1580,15 @@
                     <p class="director-role">Director de la Academia</p>
                     <p>Líder visionario que ha llevado a dos equipos distintos a representar al Estado Miranda en eventos nacionales de robótica, forjando campeones con disciplina y creatividad.</p>
                     <span class="director-badge">🏅 Representante Estadal – Estado Miranda</span>
+                </div>
+
+                <!-- Director 3 (NUEVO) -->
+                <div class="director-card reveal reveal-delay-3">
+                    <div class="director-avatar">JG</div>
+                    <h3>Jhonattan Gonzalez</h3>
+                    <p class="director-role">CEO & Fundador</p>
+                    <p>Ingeniero en Sistemas con una sólida trayectoria en educación tecnológica. Certificado como profesor de inglés por el British Council, combinando su expertise en ingeniería y lenguajes para liderar la academia hacia la excelencia internacional.</p>
+                    <span class="director-badge">🏅 Certificado British Council</span>
                 </div>
             </div>
         </div>
@@ -1628,7 +1645,6 @@
                 <!-- Testimonio 3 (Participante) -->
                 <div class="testimonial-card reveal reveal-delay-3">
                     <div class="testimonial-stars">
-                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                         <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                         <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                         <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
@@ -1786,7 +1802,7 @@
         </div>
     </section>
 
-    <!-- ==================== SECCIÓN SUMO (CORREGIDA) ==================== -->
+    <!-- ==================== SECCIÓN SUMO ==================== -->
     <section class="sumo-section" id="sumo">
         <div class="container-narrow">
             <div class="sumo-content reveal">
